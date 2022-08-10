@@ -14,12 +14,9 @@ namespace HRMS.Infrastructure.EntitiesConfiguration
         public void Configure(EntityTypeBuilder<Contract> builder)
         {
             builder.HasKey(t => t.Id);
+            builder.Property(x =>x.Id).UseIdentityColumn();
             builder.Property(p => p.Description).HasMaxLength(100).IsRequired();
-            
-            builder.HasData(
-                new Contract(1, "CLT"),
-                new Contract(2, "PJ")
-                );
+           
         }
 
 

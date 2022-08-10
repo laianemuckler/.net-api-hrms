@@ -44,16 +44,6 @@ namespace HRMS.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Contracts",
-                columns: new[] { "Id", "Description" },
-                values: new object[] { 1, "CLT" });
-
-            migrationBuilder.InsertData(
-                table: "Contracts",
-                columns: new[] { "Id", "Description" },
-                values: new object[] { 2, "PJ" });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_ContractId",
                 table: "Employees",

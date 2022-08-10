@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRMS.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220809203053_Initial")]
+    [Migration("20220810111916_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,18 +39,6 @@ namespace HRMS.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Contracts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "CLT"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "PJ"
-                        });
                 });
 
             modelBuilder.Entity("HRMS.Domain.Entities.Employee", b =>

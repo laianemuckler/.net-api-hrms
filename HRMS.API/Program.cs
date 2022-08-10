@@ -23,8 +23,7 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                  options.UseSqlServer(builder.Configuration
-                 .GetConnectionString("DefaultConnection"),
-                 b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                 .GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

@@ -28,7 +28,7 @@ namespace HRMS.Domain.Entities
             ValidateDomain(description);
         }
 
-        public ICollection<Employee> Employees { get; set; }
+        public List<Employee> Employees { get; set; }
 
         private void ValidateDomain(string description)
         {

@@ -14,6 +14,7 @@ namespace HRMS.Infrastructure.EntitiesConfiguration
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.HasKey(t => t.Id);
+            builder.Property(t => t.Id).UseIdentityColumn();
             builder.Property(p => p.Name).HasMaxLength(200).IsRequired();
 
             builder.Property(p => p.Payment).HasPrecision(10, 2);

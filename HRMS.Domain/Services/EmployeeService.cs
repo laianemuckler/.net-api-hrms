@@ -1,45 +1,58 @@
-﻿using HRMS.Domain.Entities;
+﻿using AutoMapper;
+using HRMS.Domain.DTOs;
+using HRMS.Domain.Entities;
 using HRMS.Domain.Interfaces.Repositories;
 using HRMS.Domain.Interfaces.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HRMS.Domain.Services
 {
     public class EmployeeService : IEmployeeService
     {
         private IEmployeeRepository _employeeRepository;
-        public EmployeeService(IEmployeeRepository employeeRepository)
+        private readonly IMapper _mapper;
+
+        public EmployeeService(IMapper mapper, IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
-        }
-        
-        public async Task Add(Employee employee)
-        {
-            //return await _employeeRepository.CreateAsync(employee);
+            _mapper = mapper;
         }
 
-        public Task<Employee> GetById(int id)
+        public async Task<IEnumerable<EmployeeDTO>> GetEmployees()
         {
-            throw new NotImplementedException();
+            var employeesEntity = await _employeeRepository.GetEmployeesAsync();
+            return _mapper.Map<IEnumerable<EmployeeDTO>>(employeesEntity);
         }
 
-        public Task<IEnumerable<Employee>> GetEmployees()
+        public async Task<EmployeeDTO> GetById(int id)
         {
-            throw new NotImplementedException();
+            var employeeEntity = await _employeeRepository.GetByIdAsync(id);
+            return _mapper.Map<EmployeeDTO>(employeeEntity);
         }
 
-        public Task Remove(int id)
+        public async Task<EmployeeDTO> GetEmployeeContract(int id)
         {
-            throw new NotImplementedException();
+            var employeeEntity = await _employeeRepository.GetEmployeeContractAsync(id);
+            return _mapper.Map<EmployeeDTO>(employeeEntity);
         }
 
-        public Task Update(Employee employee)
+        public async Task Add(EmployeeDTO employee)
         {
-            throw new NotImplementedException();
+           var employeeEntity = _mapper.Map<Employee>(employee);
+            await _employeeRepository.CreateAsync(employeeEntity);
         }
+
+        public async Task Update(EmployeeDTO employee)
+        {
+            var employeeEntity = _mapper.Map<Employee>(employee);
+            await _employeeRepository.UpdateAsync(employeeEntity);
+        }
+
+
+        public async Task Remove(int id)
+        {
+            var employeeEntity = _employeeRepository.GetByIdAsync(id).Result;
+            await _employeeRepository.RemoveAsync(employeeEntity);
+        }
+
     }
 }

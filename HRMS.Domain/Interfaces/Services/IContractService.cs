@@ -1,4 +1,5 @@
-﻿using HRMS.Domain.Entities;
+﻿using HRMS.Domain.DTOs;
+using HRMS.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace HRMS.Domain.Interfaces.Services
 {
     public interface IContractService
     {
-        Task<IEnumerable<Contract>> GetContracts();
-        Task<Contract> GetById(int id);
-        Task Add(Contract contract);
-        Task Update(Contract contract);
+        Task<IEnumerable<ContractDTO>> GetContracts();
+        Task<ContractDTO> GetById(int id);
+        Task Add(ContractDTO contract);
+        Task Update(ContractDTO contract);
         Task Remove(int id);
     }
 }

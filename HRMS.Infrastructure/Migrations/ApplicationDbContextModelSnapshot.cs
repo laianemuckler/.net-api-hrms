@@ -37,18 +37,6 @@ namespace HRMS.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Contracts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "CLT"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "PJ"
-                        });
                 });
 
             modelBuilder.Entity("HRMS.Domain.Entities.Employee", b =>
