@@ -11,7 +11,7 @@ namespace HRMS.Domain.DTOs
         [MinLength(2)]
         [MaxLength(100)]
         [DisplayName("Description")]
-        public string? Description { get; private set; }
+        public string? Description { get; set; }
 
     }
 }

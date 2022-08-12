@@ -13,8 +13,8 @@ namespace HRMS.Domain.Interfaces.Services
         Task<IEnumerable<EmployeeDTO>> GetEmployees();
         Task<EmployeeDTO> GetById(int id);
         Task<EmployeeDTO> GetEmployeeContract(int id);
-        Task Add(EmployeeDTO employee);
-        Task Update(EmployeeDTO employee);
+        Task Add(EmployeeDTO employeeDTO);
+        Task Update(EmployeeDTO employeeDTO);
         Task Remove(int id);
     }
 }

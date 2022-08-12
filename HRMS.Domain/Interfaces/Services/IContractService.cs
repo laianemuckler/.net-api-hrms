@@ -12,8 +12,8 @@ namespace HRMS.Domain.Interfaces.Services
     {
         Task<IEnumerable<ContractDTO>> GetContracts();
         Task<ContractDTO> GetById(int id);
-        Task Add(ContractDTO contract);
-        Task Update(ContractDTO contract);
+        Task Add(ContractDTO contractDTO);
+        Task Update(ContractDTO contractDTO);
         Task Remove(int id);
     }
 }

@@ -14,7 +14,7 @@ namespace HRMS.Infrastructure.Repositories
         }
         public async Task<Contract> Create(Contract contract)
         {
-            _contractContext.Add(contract);
+            _contractContext.Contracts.Add(contract);
             await _contractContext.SaveChangesAsync();
             return contract;
         }
@@ -29,18 +29,17 @@ namespace HRMS.Infrastructure.Repositories
             return await _contractContext.Contracts.ToListAsync();
         }
 
-        public async Task<Contract> Remove(Contract contract)
+        public async Task<bool> Remove(Contract contract)
         {
-            _contractContext.Remove(contract);
-            await _contractContext.SaveChangesAsync();
-            return contract;
+            _contractContext.Contracts.Remove(contract);
+            return await _contractContext.SaveChangesAsync() > 0;
+           
         }
 
-        public async Task<Contract> Update(Contract contract)
+        public async Task<bool> Update(Contract contract)
         {
-            _contractContext.Update(contract);
-            await _contractContext.SaveChangesAsync();
-            return contract;
+            _contractContext.Contracts.Update(contract);
+            return await _contractContext.SaveChangesAsync() > 0;
         }
     }
 }

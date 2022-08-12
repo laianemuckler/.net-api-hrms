@@ -41,18 +41,18 @@ namespace HRMS.Infrastructure.Repositories
             return await _employeeContext.Employees.ToListAsync();
         }
 
-        public async Task<Employee> RemoveAsync(Employee employee)
+        public async Task<bool> RemoveAsync(Employee employee)
         {
             _employeeContext.Employees.Remove(employee);
             await _employeeContext.SaveChangesAsync();
-            return employee;
+            return true;
         }
 
-        public async Task<Employee> UpdateAsync(Employee employee)
+        public async Task<bool> UpdateAsync(Employee employee)
         {
             _employeeContext.Employees.Update(employee);
             await _employeeContext.SaveChangesAsync();
-            return employee;
+            return true;
         }
     }
 }
