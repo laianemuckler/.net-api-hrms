@@ -41,5 +41,6 @@ namespace HRMS.Infrastructure.Repositories
             _contractContext.Contracts.Update(contract);
             return await _contractContext.SaveChangesAsync() > 0;
         }
-    }
+
+      }
 }

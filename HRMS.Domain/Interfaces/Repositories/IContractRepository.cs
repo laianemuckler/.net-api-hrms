@@ -12,7 +12,7 @@ namespace HRMS.Domain.Interfaces.Repositories
         Task<IEnumerable<Contract>> GetContracts();
         Task<Contract> GetById(int id);
         Task<Contract> Create(Contract contract);
-        Task<Contract> Update(Contract contract);
-        Task<Contract> Remove(Contract contract);
+        Task<bool> Update(Contract contract);
+        Task<bool> Remove(Contract contract);
     }
 }

@@ -13,7 +13,7 @@ namespace HRMS.Domain.Interfaces.Repositories
         Task<Employee> GetByIdAsync(int Id);
         Task<Employee> GetEmployeeContractAsync(int id);
         Task<Employee> CreateAsync(Employee employee);
-        Task<Employee> UpdateAsync(Employee employee);
-        Task<Employee> RemoveAsync(Employee employee);
+        Task<bool> UpdateAsync(Employee employee);
+        Task<bool> RemoveAsync(Employee employee);
     }
 }

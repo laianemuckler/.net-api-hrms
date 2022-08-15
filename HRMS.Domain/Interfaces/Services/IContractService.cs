@@ -1,10 +1,4 @@
 ﻿using HRMS.Domain.DTOs;
-using HRMS.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HRMS.Domain.Interfaces.Services
 {
@@ -13,7 +7,7 @@ namespace HRMS.Domain.Interfaces.Services
         Task<IEnumerable<ContractDTO>> GetContracts();
         Task<ContractDTO> GetById(int id);
         Task Add(ContractDTO contractDTO);
-        Task Update(ContractDTO contractDTO);
-        Task Remove(int id);
+        Task<bool> Update(ContractDTO contractDTO);
+        Task<bool> Remove(int id);
     }
 }

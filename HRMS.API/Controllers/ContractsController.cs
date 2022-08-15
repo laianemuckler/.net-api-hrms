@@ -10,9 +10,12 @@ namespace HRMS.API.Controllers
     public class ContractsController : ControllerBase
     {
         private readonly IContractService _contractService;
-        public ContractsController(IContractService contractService)
+        private readonly ILogger _log;
+        public ContractsController(IContractService contractService,
+                                    ILogger log)
         {
             _contractService = contractService;
+            _log = log;
         }
 
         [HttpGet]
@@ -61,11 +64,15 @@ namespace HRMS.API.Controllers
                 if (contractDTO == null)
                     return NotFound();
                 await _contractService.Add(contractDTO);
+
+                return Ok(contractDTO);
             }
-            catch
+            catch(Exception ex)
             {
+               
                 return BadRequest();
             }
+          
         }
 
         [HttpDelete("{id:int}")]
