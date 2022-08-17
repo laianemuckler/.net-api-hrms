@@ -13,7 +13,8 @@ namespace HRMS.Domain.Services
 
         public EmployeeService(IMapper mapper, IEmployeeRepository employeeRepository)
         {
-            _employeeRepository = employeeRepository;
+            _employeeRepository = employeeRepository ??
+                throw new ArgumentNullException(nameof(employeeRepository));
             _mapper = mapper;
         }
 
@@ -41,26 +42,17 @@ namespace HRMS.Domain.Services
             await _employeeRepository.CreateAsync(employeeEntity);
         }
 
-        public async Task<bool> Update(EmployeeDTO employeeDTO)
+        public async Task Update(EmployeeDTO employeeDTO)
         {
             var employeeEntity = _mapper.Map<Employee>(employeeDTO);
-            var employee = await _employeeRepository.UpdateAsync(employeeEntity);
-            if (employeeEntity == null)
-                throw new Exception("Employee not found");
-            return true;
+            await _employeeRepository.UpdateAsync(employeeEntity);
         }
 
 
-        public async Task<bool> Remove(int id)
+        public async Task Remove(int id)
         {
-            //var employeeEntity = _employeeRepository.GetByIdAsync(id).Result;
-            //await _employeeRepository.RemoveAsync(employeeEntity);
-
-            var employeeEntity = await _employeeRepository.GetByIdAsync(id);
-            if (employeeEntity == null)
-                throw new Exception("Employee not found");
+            var employeeEntity = _employeeRepository.GetByIdAsync(id).Result;
             await _employeeRepository.RemoveAsync(employeeEntity);
-            return true;
         }
 
     }

@@ -35,7 +35,8 @@ namespace HRMS.Domain.DTOs
         public decimal Payment { get; set; }
 
 
-        public string ContractType { get; set; }
+        public int ContractId { get; set; }
+
       
     }
 }

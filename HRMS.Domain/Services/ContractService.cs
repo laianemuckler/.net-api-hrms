@@ -38,24 +38,17 @@ namespace HRMS.Domain.Services
             await _contractRepository.Create(contractEntity);
         }
 
-        public async Task<bool> Update(ContractDTO contractDTO)
+        public async Task Update(ContractDTO contractDTO)
         {
             var contractEntity = _mapper.Map<Contract>(contractDTO);
-            if (contractEntity == null)
-                throw new Exception("Contract not found");
-
             await _contractRepository.Update(contractEntity);
-            return true;
+           
         }
 
-        public async Task<bool> Remove(int id)
+        public async Task Remove(int id)
         {
-            var contractEntity = await _contractRepository.GetById(id);
-            if (contractEntity == null)
-                throw new Exception("Contract not found");
+            var contractEntity = _contractRepository.GetById(id).Result;
             await _contractRepository.Remove(contractEntity);
-            return true;
-            
         }
     }
 }

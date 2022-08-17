@@ -21,14 +21,15 @@ namespace HRMS.Infrastructure.Repositories
 
         public async Task<Employee> GetByIdAsync(int Id)
         {
-            return await _employeeContext.Employees.FindAsync(Id);
+            return await _employeeContext.Employees.Include(c => c.Contract)
+                .SingleOrDefaultAsync(e => e.Id == Id);
         }
 
         public async Task<Employee> GetEmployeeContractAsync(int id)
         {
             // eager loading
             return await _employeeContext.Employees.Include(c => c.Contract)
-                .SingleOrDefaultAsync(c => c.Id == id);
+                .SingleOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<IEnumerable<Employee>> GetEmployeesAsync()
@@ -36,18 +37,18 @@ namespace HRMS.Infrastructure.Repositories
             return await _employeeContext.Employees.ToListAsync();
         }
 
-        public async Task<bool> RemoveAsync(Employee employee)
+        public async Task<Employee> RemoveAsync(Employee employee)
         {
             _employeeContext.Employees.Remove(employee);
             await _employeeContext.SaveChangesAsync();
-            return true;
+            return employee;
         }
 
-        public async Task<bool> UpdateAsync(Employee employee)
+        public async Task<Employee> UpdateAsync(Employee employee)
         {
             _employeeContext.Employees.Update(employee);
             await _employeeContext.SaveChangesAsync();
-            return true;
+            return employee;
         }
     }
 }

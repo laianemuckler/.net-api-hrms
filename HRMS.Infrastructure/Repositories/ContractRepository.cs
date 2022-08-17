@@ -21,7 +21,8 @@ namespace HRMS.Infrastructure.Repositories
 
         public async Task<Contract> GetById(int id)
         {
-            return await _contractContext.Contracts.FindAsync(id);
+            var contract = await _contractContext.Contracts.FindAsync(id);
+            return contract;
         }
 
         public async Task<IEnumerable<Contract>> GetContracts()
@@ -29,17 +30,18 @@ namespace HRMS.Infrastructure.Repositories
             return await _contractContext.Contracts.ToListAsync();
         }
 
-        public async Task<bool> Remove(Contract contract)
+        public async Task<Contract> Remove(Contract contract)
         {
             _contractContext.Contracts.Remove(contract);
-            return await _contractContext.SaveChangesAsync() > 0;
-           
+            await _contractContext.SaveChangesAsync();
+            return contract;
         }
 
-        public async Task<bool> Update(Contract contract)
+        public async Task<Contract> Update(Contract contract)
         {
             _contractContext.Contracts.Update(contract);
-            return await _contractContext.SaveChangesAsync() > 0;
+            await _contractContext.SaveChangesAsync();
+            return contract;
         }
 
       }

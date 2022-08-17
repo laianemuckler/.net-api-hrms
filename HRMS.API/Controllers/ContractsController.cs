@@ -10,12 +10,9 @@ namespace HRMS.API.Controllers
     public class ContractsController : ControllerBase
     {
         private readonly IContractService _contractService;
-        private readonly ILogger _log;
-        public ContractsController(IContractService contractService,
-                                    ILogger log)
+        public ContractsController(IContractService contractService)
         {
             _contractService = contractService;
-            _log = log;
         }
 
         [HttpGet]
@@ -59,32 +56,27 @@ namespace HRMS.API.Controllers
         [HttpPut]
         public async Task<ActionResult> Put(int id, [FromBody] ContractDTO contractDTO)
         {
-            try
-            {
-                if (contractDTO == null)
-                    return NotFound();
-                await _contractService.Add(contractDTO);
-
-                return Ok(contractDTO);
-            }
-            catch(Exception ex)
-            {
-               
+            if (id != contractDTO.Id)
                 return BadRequest();
-            }
+
+            if (contractDTO == null)
+                return BadRequest();
+            await _contractService.Update(contractDTO);
+
+            return Ok(contractDTO);
           
         }
 
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<ContractDTO>> Delete(int id)
         {
-        
-            var deleteReturn = await _contractService.Remove(id);
+            var contract = await _contractService.GetById(id);
+            if (contract == null)
+                return NotFound("Contract not found.");
 
-            if (deleteReturn)
-                return Ok("Contract successly delete.");
-            
-            return Ok("Contract was not deleted");
+            await _contractService.Remove(id);
+            return Ok(contract);
+
         }
     }
 }

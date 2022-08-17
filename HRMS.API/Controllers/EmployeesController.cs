@@ -36,11 +36,11 @@ namespace HRMS.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<EmployeeDTO>> Post([FromBody] EmployeeDTO employeeDTO)
+        public async Task<ActionResult> Post([FromBody] EmployeeDTO employeeDTO)
         {
             if (employeeDTO == null)
                 return BadRequest("Data invalid.");
-            //var employee = await _employeeService.GetById(employeeDTO.Id);
+            
             await _employeeService.Add(employeeDTO);
             return new CreatedAtRouteResult("GetEmployee", 
                 new { id = employeeDTO.Id}, employeeDTO );
@@ -54,10 +54,27 @@ namespace HRMS.API.Controllers
 
             if (employeeDTO == null)
                 return BadRequest("Data Invalid");
+
             await _employeeService.Update(employeeDTO);
             
             return Ok(employeeDTO);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<EmployeeDTO>> Delete(int id)
+        {
+            var employeeDTO = await _employeeService.GetById(id);
+
+            if (employeeDTO == null)
+                return NotFound("Employee not found");
+
+            await _employeeService.Remove(id);
+
+            return Ok(employeeDTO);
+
+        }
+ 
+
 
     }
 }

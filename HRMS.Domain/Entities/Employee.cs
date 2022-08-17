@@ -30,7 +30,6 @@ namespace HRMS.Domain.Entities
         {
             ValidateDomain(name, email, address, payment);
 
-
         }
 
         private void ValidateDomain(string name, string email, string address, decimal payment)
